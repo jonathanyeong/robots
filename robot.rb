@@ -58,7 +58,7 @@ class Robot
     elsif (@direction.last.eql?(-1))
       position = "SOUTH"
     end
-
+   
     output_string = "#{@pos.first}, #{@pos.last}, #{position}"
   end
 
@@ -72,6 +72,6 @@ class Robot
     
     pos_matrix = Matrix[[@direction.first, @direction.last]]
     pos_matrix = pos_matrix * rotation_matrix 
-    @direction = [pos_matrix[0,0], pos_matrix[1,0]]
+    @direction = [pos_matrix[0,0], pos_matrix[0,1]]
   end
 end
