@@ -1,19 +1,17 @@
 require_relative "robot"
-require "pry"
 
-@robot = Robot.new()
-i = 0
+@robot = Robot.new(5, 5)
 robot_valid = false
 ARGF.each do |command|
   if (command.include?("PLACE"))
-    command.slice!("PLACE ")
-    args = command.split(',')
+    arg_string = command.gsub!(/\s+/, "").split("PLACE")
+    args = arg_string.last.split(",")
     x = args[0].to_i
     y = args[1].to_i
-    direction = args[2].gsub(/\s+/, "")
+    direction = args[2]
     robot_valid = @robot.place(x, y, direction)
     if (robot_valid.eql?(false))
-      puts "#{command} Placement was invalid"
+      puts "#{command} -- Placement was invalid"
     end
   elsif (command.include?("MOVE"))
     if robot_valid.eql?(true)
@@ -32,5 +30,4 @@ ARGF.each do |command|
       puts "OUTPUT: #{@robot.report}"
     end
   end
-  i += 1 
 end
