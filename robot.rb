@@ -32,5 +32,20 @@ class Robot
   end
   
   def move
+    is_valid = false
+    x = @pos.first
+    y = @pos.last
+    moveX = @direction.first
+    moveY = @direction.last
+    newX = x + moveX
+    newY = y + moveY
+    if (newX < @width and newX >= 0 and newY < @height and newY >= 0)
+      is_valid = true
+      @pos.replace([newX, newY])
+    end
+    is_valid
+  end
+
+  def report
   end
 end
