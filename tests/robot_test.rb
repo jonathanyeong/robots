@@ -32,7 +32,18 @@ class TestRobot < Minitest::Test
 
   def test_report
     @robot.place(0, 0, "south")
-    assert_equal("0, 0, south", @robot.report)
+    assert_equal("0, 0, SOUTH", @robot.report)
   end
 
+  def test_rotate_left
+    @robot.place(0, 0, "south")
+    @robot.rotate(0)
+    assert_equal("0, 0, EAST", @robot.report)
+  end
+
+  def test_rotate_right
+    @robot.place(0, 0, "south")
+    @robot.rotate(1)
+    assert_equal("0, 0, WEST", @robot.report)
+  end
 end
