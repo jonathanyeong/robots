@@ -3,7 +3,13 @@ require_relative "../robot"
 
 class TestRobot < Minitest::Test
   def setup
-    @robot = Robot.new
+    @robot = Robot.new(5, 5)
+  end
+
+  def test_initial_robot_values
+    assert_nil(@robot.pos, "Initially robot position should be nil")
+    assert_nil(@robot.direction_matrix, 
+               "Initially robot direction matrix should be nil")
   end
   
   def test_valid_robot_place
