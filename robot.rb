@@ -18,24 +18,17 @@ class Robot
 
   def command(cmd)
     cmd_array = cmd.split(' ')
-    if cmd_array.first == "PLACE"
-      args = cmd_array.last.split(",")
-      x = args[0].to_i
-      y = args[1].to_i
-      direction = args[2]
-      place(x, y, direction)
-      return false if @robot_valid.eql?(false)
-    elsif @robot_valid
-      if cmd_array.first == "MOVE"
-        move
-      elsif cmd_array.first == "LEFT"
-        rotate(0)
-      elsif cmd_array.first == "RIGHT"
-        rotate(1)
-      elsif cmd_array.first == "REPORT"
-        return "OUTPUT: #{report}"
-      end
+    cmd_keyword = cmd_array.first
+    if cmd_keyword == 'PLACE'
+      args = extract_place_args(cmd_array.last.split(','))
+      place(args[0], args[1], args[2])
     end
+
+    return false unless @robot_valid
+    return "OUTPUT: #{report}" if cmd_keyword == 'REPORT'
+    move if cmd_keyword == 'MOVE'
+    rotate(0) if cmd_keyword == 'LEFT'
+    rotate(1) if cmd_keyword == 'RIGHT'
   end
 
   # Robot test will fail if these methods are private
@@ -99,5 +92,12 @@ class Robot
       return true
     end
     false
+  end
+
+  def extract_place_args(args)
+    x = args[0].to_i
+    y = args[1].to_i
+    direction = args[2]
+    [x, y, direction]
   end
 end
