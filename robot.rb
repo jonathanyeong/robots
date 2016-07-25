@@ -48,27 +48,26 @@ class Robot
     # corresponding elements of @direction_matrix
     # Then the map sums each sub array
     new_pos = @pos.zip(@direction_matrix).map{|x| x.inject{|a, b| a + b}}
-    newX = new_pos[0]
-    newY = new_pos[1]
-    if within_board?(newX, newY)
+    new_x = new_pos[0]
+    new_y = new_pos[1]
+    if within_board?(new_x, new_y)
       is_valid = true
-      @pos.replace([newX, newY])
+      @pos.replace([new_x, new_y])
     end
     @robot_valid = is_valid
   end
 
   def report
     if @direction_matrix.first.eql?(1)
-      position = "EAST"
+      position = 'EAST'
     elsif @direction_matrix.first.eql?(-1)
-      position = "WEST"
+      position = 'WEST'
     elsif @direction_matrix.last.eql?(1)
-      position = "NORTH"
+      position = 'NORTH'
     elsif @direction_matrix.last.eql?(-1)
-      position = "SOUTH"
+      position = 'SOUTH'
     end
-
-    output_string = "#{@pos.first},#{@pos.last},#{position}"
+    "#{@pos.first},#{@pos.last},#{position}"
   end
 
   def rotate(f)
@@ -79,8 +78,8 @@ class Robot
     end
 
     pos_matrix = Matrix[[@direction_matrix.first, @direction_matrix.last]]
-    pos_matrix = pos_matrix * rotation_matrix
-    @direction_matrix = [pos_matrix[0,0], pos_matrix[0,1]]
+    pos_matrix *= rotation_matrix
+    @direction_matrix = [pos_matrix[0, 0], pos_matrix[0, 1]]
   end
 
   private
