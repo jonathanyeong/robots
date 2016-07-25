@@ -1,5 +1,4 @@
 require_relative 'robot'
-require_relative 'robot_factory'
 
 def main(*cmds)
   robot = Robot.new(5, 5)
