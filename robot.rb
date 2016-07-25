@@ -19,11 +19,9 @@ class Robot
   def command(cmd)
     cmd_array = cmd.split(' ')
     cmd_keyword = cmd_array.first
-    if cmd_keyword == 'PLACE'
-      args = extract_place_args(cmd_array.last.split(','))
-      place(args[0], args[1], args[2])
-    end
+    args = cmd_array.last.split(',')
 
+    place(args) if cmd_keyword == 'PLACE'
     return false unless @robot_valid
     return "OUTPUT: #{report}" if cmd_keyword == 'REPORT'
     move if cmd_keyword == 'MOVE'
@@ -31,10 +29,11 @@ class Robot
     rotate(1) if cmd_keyword == 'RIGHT'
   end
 
-  # Robot test will fail if these methods are private
-
-  def place(x, y, f)
-    direction = f.upcase
+  def place(args)
+    args = extract_place_args(args)
+    x = args[0]
+    y = args[1]
+    direction = args[2].upcase
     @robot_valid = false
     @direction_matrix = @direction_hash[direction]
     return unless within_board?(x, y)
